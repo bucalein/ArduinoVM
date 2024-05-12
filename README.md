@@ -5,9 +5,7 @@
 
 ArduinoVM is a framework for hardware testing: it provides a
 x86 like virtual machine environment to run programs on the board's RAM
-of the AVR microcontroller instead of the FLASH memory:
-
-this allows you to test the code fast, and preserve the flash memory,
+of the AVR microcontroller instead of the FLASH memory.
 
 Not all Arduino functionalities are supported at the moment except
 for digitalRead, digitalWrite, pinMode, Serial print and timing functions.
@@ -16,18 +14,19 @@ for digitalRead, digitalWrite, pinMode, Serial print and timing functions.
   USAGE
 ---------
 
-1- open this project ArduinoVM.ino with Arduino
-2- Upload sketch
+To load the VM onto the Arduino:
+  1- open the ArduinoVM.ino project with Arduino
+  2- Upload the sketch
 
-Build the compiler: 
+Also you will need a compiler for assembling the code: 
   $ cd tools
   $ make compiler
 
-Then to compile one of the examples:
+Next, to test how it works you can compile one of the examples:
   $ ./compiler ../examples/blink
 
-Which will produce ../examples/blink.bin that you can
-turn into a string of bytes with hexdump:
+Which will produce ../examples/blink.bin that can be
+turned into a string of bytes with hexdump:
 
   $ hexdump -e '32/2 "%04x" "\n"' blink.bin
 
@@ -37,15 +36,14 @@ of Arduino or whichever you're using.
 --------
   TODO
 --------
-This project just started out, and so, there are a lot of things still to be done,
+Where to go from here? There are a tons of things still to be done,
 some examples:
 
-|- write the documentation
+|- write more documentation
 |- write better code for some functions like VM::Compile
 |- improve the compiler.cpp : add labels, includes,
-|- add more instructions to the VM: from to every register,
-   dereference of stack memory
-|- completition of the tests
+|- add more instructions to the VM: dereference of the stack memory and interrupt routines
+|- write more tests
 
 
 -------------
@@ -58,7 +56,7 @@ a hobby project, so every contribution makes a difference
  HELP 
 ------
 Given the fact that the assembler is very rudimental you can use this 
-line command to calculate the addresses to be used with call, jmp instructions:
+commandline to calculate the addresses to be used with call, jmp instructions:
 
   $ grep "^[^#]" FILENAME | nl
 
