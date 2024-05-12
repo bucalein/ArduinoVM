@@ -1,0 +1,64 @@
+#-------#
+# Alarm #
+#-------#
+
+# connect a buzzer to PIN 4 and the other one 
+# to ground
+
+# NOTES:
+# G - 2551 us
+# A - 2273 us
+# B - 2055 us
+# C - 1911 us
+# D - 1703 us
+
+# SETUP
+#set the PIN 4 as OUTPUT
+so 4
+
+# RA = D freq
+mov RA, 255
+mul RA, 6
+add RA, 173
+
+# backup RA
+mov RB, RA
+
+# RD = A freq
+# add A-D to D
+mov RD, 255
+add RD, 255
+add RD, 60
+add RD, RA
+
+
+# START EXECUTION
+# setup the counter
+mov RC, 100
+mov RA, RB
+call 17
+
+mov RC, 100
+mov RA, RD
+call 17
+
+jmp 9
+
+ext
+
+
+# PLAY THE NOTE
+out h84
+
+#interpret the value in RA as microseconds 
+wait 0
+
+out 4
+wait 0
+
+sub RC, 1
+jnz 17
+
+or RA, 0
+
+ret

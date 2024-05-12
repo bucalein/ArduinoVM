@@ -1,0 +1,21 @@
+# print Hello world on the Serial monitor
+
+push h48
+push h65
+push h6c
+push h6c
+push h6f
+push h20
+push h77
+push h6f
+push h72
+push h6c
+push h64
+push h21
+push h0a
+push 0
+
+
+prts 249
+
+ext

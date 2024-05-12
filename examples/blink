@@ -1,0 +1,20 @@
+#set the PIN 4 as OUTPUT
+so 4
+
+# milliseconds to wait
+mov RA, 200
+
+
+# write HIGH to PIN 4: this turns the LED on
+out h84
+
+#interpret the value in RA as milliseconds
+wait 1
+
+#turn the LED off and wait
+out 4
+wait 1
+
+jmp 2
+
+ext

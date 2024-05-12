@@ -1,0 +1,24 @@
+# emit a square wave on PIN 4 used to drive a passive buzzer
+# 2 kHz frequency
+so 4
+
+# milliseconds to wait
+mov RA, 1
+
+call 5
+
+jmp 1
+
+ext
+
+# write HIGH to PIN 4: this turns the LED on
+out h84
+
+#interpret the value in RA as milliseconds
+wait 1
+
+#turn the LED off and wait
+out 4
+wait 1
+
+ret

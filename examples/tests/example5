@@ -1,0 +1,17 @@
+#test logic AND
+
+mov RA, hff
+mov RB, hff
+mov RC, hff
+mov RD, hff
+
+and RA, 2
+and RB, 4
+and RC, 8
+and RD, 16 
+
+and RA, RB
+and RA, RC
+and RA, RD
+
+ext

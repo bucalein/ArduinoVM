@@ -1,0 +1,28 @@
+# read a value from PIN 4, depending on its value
+# turn on or off the buzzer attached to PIN 7
+
+si 4
+so 7
+
+#back up 1 ms 
+mov RB, 1
+
+in 4
+or RA, 0
+
+jz 8
+
+
+out 7
+jmp 3
+
+
+mov RA, RB
+
+out h87
+wait 1
+
+out 7
+wait 1
+
+jmp 3

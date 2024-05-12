@@ -1,0 +1,30 @@
+# small program to show the content of the stack
+
+# we store "AB" on the stack
+push h41
+push h42
+
+# we call a print function
+call 6
+
+push ha
+
+call 6
+
+ext
+
+# push a zero onto the stack: end of line
+mov RA, 0
+push RA
+
+# start to print
+prts 249
+
+# pop the 4 zero bytes we pushed earlier,
+# otherwise ret would load them in SBP and PC
+# which in turn would break the program
+pop RA, 4
+
+ret
+
+

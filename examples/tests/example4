@@ -1,0 +1,19 @@
+#test logic operations: OR
+
+mov RA, 0
+mov RB, 0
+mov RC, 0
+mov RD, 0
+
+or RA, 2
+or RB, 4
+or RC, 8
+or RD, 16
+
+or RA, RB
+or RA, RC
+or RA, RD
+
+#RA = 1e
+
+ext

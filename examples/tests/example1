@@ -1,0 +1,20 @@
+# this is a comment
+
+mov RA, 2
+mov RB, 3
+mov RC, 4
+mov RD, 5
+
+add RA, 2
+add RB, 3
+add RC, 4
+add RD, 5
+
+# RA = 4, RB = 6, RC = 8, RD = 10
+
+add RA, RB
+add RA, RC
+add RA, RD
+
+# RA = 28, RB = 6, RC = 8, RD = 10
+

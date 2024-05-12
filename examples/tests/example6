@@ -1,0 +1,19 @@
+#stack usage example
+mov RA, 5
+mov RB, 5
+mov RC, 0
+mov RD, 0
+
+push RA
+
+call 9
+
+pop RA, 4
+add RB, 5
+
+ext
+
+add RB, 5
+sub RA, 1
+ret
+

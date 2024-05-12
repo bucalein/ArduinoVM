@@ -1,0 +1,17 @@
+mov RA, 2
+mov RB, 4
+mov RC, 5
+mov RD, 6
+
+#if RA < RB jump to line 7
+sub RA, RB
+js 7
+add RC, 4
+
+jmp 9
+add RC, 4
+
+mov RA, 2
+add RA, RC
+
+ext

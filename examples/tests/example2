@@ -1,0 +1,12 @@
+#this program sets in RA = 5 * 8 
+mov RA, 5
+mov RB, 7
+
+mov RC, 0
+mov RD, 0
+
+add RA, 5
+sub RB, 1
+jnz 4 
+
+ext
