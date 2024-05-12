@@ -48,23 +48,24 @@ some examples:
 \
 |- write better code for some functions like VM::Compile
 \
-|- improve the compiler.cpp : add labels, includes,
+|- improve the compiler.cpp : add labels, includes
 \
 |- add more instructions to the VM: dereference of the stack memory and interrupt routines
 \
-|- write more tests
+|- automate the task of compiling and loading the code onto the Arduino with a
+\  shell script 
 
 
 -------------
  PARTICIPATE
 -------------
-If you like the project and would like to contribute, don't hesitate! This is
+If you like the project and would like to contribute, you're more than welcome! This is
 a hobby project, so every contribution makes a difference
 
 ------
  HELP 
 ------
-Given the fact that the assembler is very rudimental you can use this 
+Given the fact that the assembler is very rudimenta; you can use this 
 commandline to calculate the addresses to be used with call, jmp instructions:
 
   $ grep "^[^#]" FILENAME | nl
