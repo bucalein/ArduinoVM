@@ -17,13 +17,13 @@ for digitalRead, digitalWrite, pinMode, Serial print and timing functions.
 To load the VM onto the Arduino:
 
   1- open the ArduinoVM.ino project with Arduino
-  
+  \
   2- Upload the sketch
 
 Also you will need a compiler for assembling the code: 
 
   $ cd tools
-  
+  \
   $ make compiler
 
 Next, to test how it works you can compile one of the examples:
