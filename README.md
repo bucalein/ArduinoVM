@@ -45,9 +45,13 @@ Where to go from here? There are a tons of things still to be done,
 some examples:
 
 |- write more documentation
+\
 |- write better code for some functions like VM::Compile
+\
 |- improve the compiler.cpp : add labels, includes,
+\
 |- add more instructions to the VM: dereference of the stack memory and interrupt routines
+\
 |- write more tests
 
 
