@@ -1,0 +1,84 @@
++----------+
+ CPU LAYOUT
++----------+
+
+  RA  RB  RC  RD   - main registers
+  FS               - Flags register: Z S C O
+  STP              - Pointer register to the TOP of the Stack
+  SBP              - Pointer register to the BASE of the Stack
+  PC               - Program Counter
+
+This is how the memory is organized:
+
+  CS    - Code Segment, where the program code is stored, not the same array as stack
+  Stack - where the variables are stored, it grows downwards:
+          from the highest index, where the base is, to the lowest
+
+
++--------------------+
+ LIST OF INSTRUCTIONS
++--------------------+
+
+val == generic immediate value
+mem == valid address in the Code Segment
+
+REG := RA, RB, RC, RD  
+OREG := REG, STP, SBP 
+VAL := REG, val
+SIZE := 1, 2, 4
+
+the operation result is always stored in the first operand, while the second
+one acts like an immediate value. On the left side the Flags possibly set
+by the instruction
+
+mov REG, VAL
+nop
+
+- ARITHMETIC -
+
+add REG, VAL    - O, C
+sub REG, VAL    - Z, S 
+mul REG, VAL
+
+
+- LOGIC -
+
+or REG, VAL     - Z, S 
+and REG, VAL    - Z, S
+xor REG, VAL    - Z, S
+not REG, VAL    - Z, S
+
+
+- BRANCH -
+
+jmp mem        - inconditional jump 
+js mem         - jump to mem if S == 1
+jz mem         - jump to mem if Z == 1
+jnz mem        - jump to mem if Z == 0
+
+call mem       - push SBP and PC, then jump to mem
+ret            - pop PC and SBP, then jump to PC+1
+ext            - exit from the execution of the program
+
+
+- STACK -
+
+push val       - push val onto the stack
+push OREG
+pop OREG, SIZE - get SIZE bytes from the stack and store it in OREG
+
+
+- ARDUINO -
+
+si PIN         - set PIN as input
+so PIN         - set PIN as output
+out PIN        - PIN, 1 bit, the most significant one for the level (HIGH or LOW) and the rest 7 bits to identify the PIN
+in PIN         - read the value of PIN and store it in RA
+
+wait val       - if val == 0, than interpret RA as microseconds, if val == 1 as milliseconds
+
+prtc ss        - print character at ss, stack index
+prts ss        - start to print characters at ss and stop when we hit a null byte on the stack
+
+
+
