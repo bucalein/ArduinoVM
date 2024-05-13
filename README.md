@@ -3,48 +3,55 @@
   INTRODUCTION
 ----------------
 
-ArduinoVM is a framework for hardware testing: it provides a
-x86 like virtual machine environment to run programs on the board's RAM
-of the AVR microcontroller instead of the FLASH memory.
+ArduinoVM is an Arduino sketch which implements a
+x86 like virtual machine for running programs from the AVR microcontroller's RAM instead of the FLASH memory.
 
-Not all Arduino functionalities are supported at the moment except
-for digitalRead, digitalWrite, pinMode, Serial print and timing functions.
+This allows you to load a sketch on the board once and run multiple programs from your computer, 
+without the need to rewrite the FLASH each time. 
 
 ---------
   USAGE
 ---------
 
-To load the VM onto the Arduino:
+ArduinoVM is loaded onto the board like every other sketch:
 
   1- open the ArduinoVM.ino project with Arduino
   \
   2- Upload the sketch
 
-Also you will need a compiler for assembling the code: 
+
+For writing programs you will also need a compiler which 
+takes a text program as its input and creates a .bin binary file with the relative opcodes.
+To build it:
 
   $ cd tools
   \
   $ make compiler
 
-Next, to test how it works you can compile one of the examples:
+
+Example usage:
+
+1 - Compile one of the examples, the
+    blinking led, which controls an
+    led attached to pin 4:
 
   $ ./compiler ../examples/blink
 
 Which will produce ../examples/blink.bin that can be
-turned into a string of bytes with hexdump:
+turned into a string of bytes by using hexdump:
 
   $ hexdump -e '32/2 "%04x" "\n"' blink.bin
 
-Finally copy and paste the output to the serial monitor
-of Arduino or whichever you're using.
+Finally copy and paste the output to Arduino' serial monitor
+or whichever you're using, for executing.
 
 --------
   TODO
 --------
-Where to go from here? There are a tons of things still to be done,
+There are a tons of things still to be done,
 some examples:
 
-|- write more documentation
+|- write running tests for every opcode
 \
 |- write better code for some functions like VM::Compile
 \
@@ -52,8 +59,7 @@ some examples:
 \
 |- add more instructions to the VM: dereference of the stack memory and interrupt routines
 \
-|- automate the task of compiling and loading the code onto the Arduino with a
-\  shell script 
+|- automate the task of compiling and loading the code onto the Arduino with a shell script 
 
 
 -------------
@@ -65,8 +71,7 @@ a hobby project, so every contribution makes a difference
 ------
  HELP 
 ------
-Given the fact that the assembler is very rudimenta; you can use this 
-commandline to calculate the addresses to be used with call, jmp instructions:
+Given the fact that the assembler is very rudimental: there are yet no labels which can be used as jumping addresses and you have to count manually the instruction address; you can use the following command to get the address of each opcode:
 
   $ grep "^[^#]" FILENAME | nl
 
