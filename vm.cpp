@@ -16,13 +16,14 @@
 #include "vm.h"
 #include "utils.h"
 
+/* _LIB_ contains all the code that we don't
+ * need to upload on the Arduino */
+
 #ifndef _LIB_
  #include "Arduino.h"
 #endif
 
 #include <stdint.h>
-
-VM vm;
 
 void VM::LoadOpcode(uint16_t opcode, uint16_t at){
    this->cs[at] = opcode;
@@ -240,7 +241,6 @@ uint16_t VM::Compile(uint8_t buf[ ], int len){
      return OPCODE;
    }
 
-   // RA can't be passed as second arg
    k = 0;
    found = false;
 
@@ -308,10 +308,10 @@ uint32_t VM::sub(uint32_t reg, uint32_t val){
 
 }
 
+
 /*
  *  STACK
  */
-
 
 void VM::push(uint8_t val){
   
@@ -442,8 +442,6 @@ uint32_t VM::NOT(uint32_t reg){
 
 #ifndef _LIB_
 
-
-
 #ifdef ARDUINO_AVR_UNO
 
 // these functions will execute everytime an interrupt is triggered
@@ -513,7 +511,10 @@ uint32_t VM::get_reg(uint16_t opc){
 void VM::exec(uint16_t opcode){
 
   switch(opcode & VM_OP_MASK){
-    /* MOV */
+	  
+    /*
+     * MOV 
+     */
     case VM_MOVE_VAL_TO_RA:
       this->RA = GET_DATA(opcode);
       break;
@@ -876,8 +877,9 @@ void VM::exec(uint16_t opcode){
       return;
 
 
-
-
+    /*
+     * MUL
+     */
     case VM_MUL_VAL_TO_RA:
       this->RA *= GET_DATA(opcode);
       break;
@@ -961,7 +963,6 @@ void VM::exec(uint16_t opcode){
   #ifdef ARDUINO_AVR_UNO
      // TODO the object functions can't be passed to the 
      // attachInterrupt function, we need to find another way
-
   #endif
 
   #endif /* _LIB_ */
