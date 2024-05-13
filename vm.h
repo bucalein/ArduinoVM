@@ -99,7 +99,6 @@ class VM {
 /*
  * BIT MASKS
  */
-
 #define VM_REG_MASK     0xe000
 #define VM_OP_MASK    	0xff00
 #define VM_DAT_MASK   	0x00ff
@@ -144,9 +143,9 @@ class VM {
 #define VM_MOVE_VAL_TO_RD  0x6100    /* mov RD, val */
 
 #define VM_MOVE_REG_TO_RA   0x8100    /* mov RA, REG */
-#define VM_MOVE_REG_TO_RB   0xa100    /* mov RA, RC */
-#define VM_MOVE_REG_TO_RC   0xc100    /* mov RA, RD */
-#define VM_MOVE_REG_TO_RD   0xe100    /* mov RB, RA */
+#define VM_MOVE_REG_TO_RB   0xa100    /* mov RB, REG */
+#define VM_MOVE_REG_TO_RC   0xc100    /* mov RC, REG */
+#define VM_MOVE_REG_TO_RD   0xe100    /* mov RD, REG */
 
 #define VM_JMP             0x0200    /* jmp MEM */
 #define VM_JMP_ZERO        0x2200    /* jz MEM */
@@ -173,10 +172,10 @@ class VM {
 #define VM_SUB_VAL_TO_RC   0x4400    /* sub RC, val */
 #define VM_SUB_VAL_TO_RD   0x6400    /* sub RD, val */
 
-#define VM_SUB_REG_TO_RA    0x8400    /* sub RA, RB */
-#define VM_SUB_REG_TO_RB    0xa400    /* sub RA, RC */
-#define VM_SUB_REG_TO_RC    0xc400    /* sub RA, RD */
-#define VM_SUB_REG_TO_RD    0xe400    /* sub RA, RD */
+#define VM_SUB_REG_TO_RA    0x8400    /* sub RA, REG */
+#define VM_SUB_REG_TO_RB    0xa400    /* sub RB, REG */
+#define VM_SUB_REG_TO_RC    0xc400    /* sub RC, REG */
+#define VM_SUB_REG_TO_RD    0xe400    /* sub RD, REG */
 
 /* OR REG, VAL - Make the logic OR between REG and VAL and store the value in REG*/
 #define VM_OR              0x0500
@@ -185,10 +184,10 @@ class VM {
 #define VM_OR_VAL_TO_RC    0x4500    /* or RC, VAL */
 #define VM_OR_VAL_TO_RD    0x6500    /* or RD, VAL */
 
-#define VM_OR_REG_TO_RA     0x8500    /* or RA, RB */
-#define VM_OR_REG_TO_RB     0xa500    /* or RA, RC */
-#define VM_OR_REG_TO_RC     0xc500    /* or RA, RD */
-#define VM_OR_REG_TO_RD     0xe500    /* or RA, RD */
+#define VM_OR_REG_TO_RA     0x8500    /* or RA, REG */
+#define VM_OR_REG_TO_RB     0xa500    /* or RB, REG */
+#define VM_OR_REG_TO_RC     0xc500    /* or RC, REG */
+#define VM_OR_REG_TO_RD     0xe500    /* or RD, REG */
 
 /* AND REG, VAL - Make logic AND between REG and VAL and store the value in REG */
 #define VM_AND             0x0600
@@ -197,10 +196,10 @@ class VM {
 #define VM_AND_VAL_TO_RC   0x4600    /* and RC, VAL */
 #define VM_AND_VAL_TO_RD   0x6600    /* and RD, VAL */
 
-#define VM_AND_REG_TO_RA    0x8600    /* and RA, RB */
-#define VM_AND_REG_TO_RB    0xa600    /* and RA, RC */
-#define VM_AND_REG_TO_RC    0xc600    /* and RA, RD */
-#define VM_AND_REG_TO_RD    0xe600    /* and RA, RD */
+#define VM_AND_REG_TO_RA    0x8600    /* and RA, REG */
+#define VM_AND_REG_TO_RB    0xa600    /* and RB, REG */
+#define VM_AND_REG_TO_RC    0xc600    /* and RC, REG */
+#define VM_AND_REG_TO_RD    0xe600    /* and RD, REG */
 
 // TODO add a set of instructions to dereference the
 // STP pointer and access directly the stack
@@ -225,17 +224,18 @@ class VM {
 #define VM_POP_SBP         0x8800    /* pop SBP */
 #define VM_POP_STP         0xa800    /* pop STP */
 
-/* XOR REG, VAL - Xor a value in REG with VAL and the result put it to REG */
+/* XOR REG, VAL - Xor a value in REG with VAL and 
+ *                put the result in the first operand */
 #define VM_XOR             0x0900
 #define VM_XOR_VAL_TO_RA   0x0900    /* xor RA, val */
 #define VM_XOR_VAL_TO_RB   0x2900    /* xor RB, val */
 #define VM_XOR_VAL_TO_RC   0x4900    /* xor RC, val */
 #define VM_XOR_VAL_TO_RD   0x6900    /* xor RD, val */
 
-#define VM_XOR_REG_TO_RA    0x8900    /* xor RA, RB */
-#define VM_XOR_REG_TO_RB    0xa900    /* xor RA, RC */
-#define VM_XOR_REG_TO_RC    0xc900    /* xor RA, RD */
-#define VM_XOR_REG_TO_RD    0xe900    /* xor RA, RD */
+#define VM_XOR_REG_TO_RA    0x8900    /* xor RA, REG */
+#define VM_XOR_REG_TO_RB    0xa900    /* xor RB, REG */
+#define VM_XOR_REG_TO_RC    0xc900    /* xor RC, REG */
+#define VM_XOR_REG_TO_RD    0xe900    /* xor RD, REG */
 
 
 /* NOT REG - negate the content of REG: each bit is replaced by its opposite */
@@ -263,12 +263,12 @@ class VM {
 
 /* print one or more characters stored at a given address
  * on the stack */
-#define VM_PRINT_CHAR      0x8b00    /* prtc MEM */
-#define VM_PRINT_STRING	   0xab00    /* prts MEM */
+#define VM_PRINT_CHAR      0x8b00    /* prtc SS */
+#define VM_PRINT_STRING	   0xab00    /* prts SS */
 #define VM_WAIT	           0xcb00    /* wait VAL */
 
-/* it sets the address of the ISR and return,
- * it's like a "call" but triggered in hardware */
+// TODO NOT YET IMPLEMENTED
+/* it sets the address of the ISR and return */
 #define VM_INTERRUPT       0xeb00    /* int VAL */
 
 
@@ -278,12 +278,13 @@ class VM {
 #define VM_MUL_VAL_TO_RC   0x4c00    /* mul RC, VAL */
 #define VM_MUL_VAL_TO_RD   0x6c00    /* mul RD, VAL */
 
-#define VM_MUL_REG_TO_RA    0x8c00    /* mul RA, RB */
-#define VM_MUL_REG_TO_RB    0xac00    /* mul RA, RC */
-#define VM_MUL_REG_TO_RC    0xcc00    /* mul RA, RD */
-#define VM_MUL_REG_TO_RD    0xec00    /* mul RA, RD */
+#define VM_MUL_REG_TO_RA    0x8c00    /* mul RA, REG */
+#define VM_MUL_REG_TO_RB    0xac00    /* mul RB, REG */
+#define VM_MUL_REG_TO_RC    0xcc00    /* mul RC, REG */
+#define VM_MUL_REG_TO_RD    0xec00    /* mul RD, REG */
 
 #define VM_NOP             0xffff    /* nop */
+
 /*
  * FLAGS
  */
